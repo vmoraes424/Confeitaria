@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "./components/Nav";
 import "./App.css";
+import { Accordion, AccordionItem } from "@szhsin/react-accordion";
 import Swal from "sweetalert2";
 
 export default function App() {
@@ -8,6 +9,13 @@ export default function App() {
   const [nome, setNome] = useState("");
   const [ingredientes, setIngredientes] = useState("");
   const [modo, setModo] = useState("");
+
+  useEffect(() => {
+    const receitas = localStorage.getItem("receitas");
+    if (receitas) {
+      setReceitas(JSON.parse(receitas));
+    }
+  }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -27,10 +35,21 @@ export default function App() {
     }
   }
 
-  const receitada = receitas.map((receita) => (
-    <div className="receita">
-      <h2>{receita.nome}</h2>
-    </div>
+  const receitada = receitas.map((receita, idx) => (
+    <AccordionItem
+      key={idx}
+      header={<h1>{receita.nome}</h1>}
+      className="receita"
+    >
+      <br />
+      <h3>Ingredientes:</h3>
+      <p>{receita.ingredientes}</p>
+      <br />
+      <hr />
+      <br />
+      <h3>Modo de preparo:</h3>
+      <p>{receita.modo}</p>
+    </AccordionItem>
   ));
 
   return (
@@ -43,30 +62,33 @@ export default function App() {
             <img src="./public/imgs/livro.png" alt="" />
           </div>
           <form action="" onSubmit={handleSubmit}>
-            <label htmlFor="nome">Nome da receita</label>
+            <label htmlFor="nome">Nome da receita:</label>
             <input
               type="text"
               name="nome"
               value={nome}
+              placeholder="Digite o nome da receita"
               id="nome"
               onChange={(e) => setNome(e.target.value)}
             />
-            <label htmlFor="ingredientes">Ingredientes</label>
+            <label htmlFor="ingredientes">Ingredientes:</label>
             <textarea
               name="ingredientes"
               id="ingredientes"
               cols="30"
+              placeholder="Digite os ingredientes"
               value={ingredientes}
               rows="10"
               onChange={(e) => setIngredientes(e.target.value)}
             ></textarea>
-            <label htmlFor="modo">Modo de preparo</label>
+            <label htmlFor="modo">Modo de preparo:</label>
             <textarea
               name="modo"
               id="modo"
               cols="30"
               value={modo}
               rows="10"
+              placeholder="Digite o modo de preparo"
               onChange={(e) => setModo(e.target.value)}
             ></textarea>
             <button type="submit">Adicionar</button>
@@ -74,13 +96,16 @@ export default function App() {
         </div>
         <div className="direita">
           <h1>Receitas</h1>
-          <div className="receitas">
-            {receitas.length === 0 ? (
-              <h1>Nenhuma receita cadastrada</h1>
-            ) : (
-              receitada
-            )}
-          </div>
+
+          <Accordion>
+            <div className="receitas">
+              {receitas.length === 0 ? (
+                <h2>Nenhuma receita cadastrada</h2>
+              ) : (
+                receitada
+              )}
+            </div>
+          </Accordion>
         </div>
       </main>
     </>
