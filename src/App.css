@@ -16,6 +16,12 @@ main {
   display: flex;
 }
 
+body {
+  background-image: url("../imgs/Fundo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 input[type="text"] {
   padding: 1rem;
   font-size: 1.2rem;
@@ -42,6 +48,10 @@ label {
 textarea {
   resize: none;
   height: 100px;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
 }
 
 .receitas {
@@ -54,6 +64,7 @@ textarea {
   border-radius: 1rem;
   margin-bottom: 1rem;
   padding: 2rem;
+  background-color: white;
 }
 
 .receita button {

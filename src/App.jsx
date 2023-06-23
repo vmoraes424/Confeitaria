@@ -10,13 +10,6 @@ export default function App() {
   const [ingredientes, setIngredientes] = useState("");
   const [modo, setModo] = useState("");
 
-  useEffect(() => {
-    const receitas = localStorage.getItem("receitas");
-    if (receitas) {
-      setReceitas(JSON.parse(receitas));
-    }
-  }, []);
-
   function handleSubmit(e) {
     e.preventDefault();
     const receita = {
@@ -42,13 +35,15 @@ export default function App() {
       className="receita"
     >
       <br />
-      <h3>Ingredientes:</h3>
-      <p>{receita.ingredientes}</p>
+      <p>
+        <strong>Ingredientes:</strong>&nbsp;
+        {receita.ingredientes}
+      </p>
       <br />
-      <hr />
-      <br />
-      <h3>Modo de preparo:</h3>
-      <p>{receita.modo}</p>
+      <p>
+        <strong>{receita.nome}:</strong>&nbsp;
+        {receita.modo}
+      </p>
     </AccordionItem>
   ));
 
