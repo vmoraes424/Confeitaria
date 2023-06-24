@@ -101,7 +101,7 @@ export default function App() {
         <div className="direita">
           <h1>Receitas</h1>
 
-          <Accordion>
+          <Accordion transition transitionTimeout={500}>
             <div className="receitas">
               {receitas.length === 0 ? (
                 <h2>Nenhuma receita cadastrada</h2>
