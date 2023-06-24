@@ -10,6 +10,13 @@ export default function App() {
   const [ingredientes, setIngredientes] = useState("");
   const [modo, setModo] = useState("");
 
+  useEffect(() => {
+    const receitasSalvas = JSON.parse(localStorage.getItem("receitas"));
+    if (receitasSalvas) {
+      setReceitas(receitasSalvas);
+    }
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
     const receita = {
@@ -21,6 +28,8 @@ export default function App() {
       Swal.fire("Erro", "Preencha todos os campos", "error");
       return;
     } else {
+      const novaReceita = [...receitas, receita];
+      localStorage.setItem("receitas", JSON.stringify(novaReceita));
       setReceitas([...receitas, receita]);
       setNome("");
       setIngredientes("");
