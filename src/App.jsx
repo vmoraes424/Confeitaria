@@ -63,7 +63,7 @@ export default function App() {
         <div className="esquerda">
           <div className="cima">
             <h1>Cadastre uma nova receita</h1>
-            <img src="./public/imgs/livro.png" alt="" />
+            <img src="/imgs/livro.png" alt="" />
           </div>
           <form action="" onSubmit={handleSubmit}>
             <label htmlFor="nome">Nome da receita:</label>
